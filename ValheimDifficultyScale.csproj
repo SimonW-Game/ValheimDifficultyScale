@@ -74,10 +74,19 @@
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>lib\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>lib\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>lib\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculations.cs" />
     <Compile Include="DrawCircles.cs" />
+    <Compile Include="Effects\PushAndSlowAfterTime.cs" />
+    <Compile Include="Effects\StaggerAfterTime.cs" />
+    <Compile Include="Utility\CustomStatusEffects.cs" />
     <Compile Include="Utility\ItemData.cs" />
     <Compile Include="SpawnCharacterModifications.cs" />
     <Compile Include="Utility\DifficultyBlobEffects.cs" />
