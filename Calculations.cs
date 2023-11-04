@@ -8,8 +8,8 @@ namespace ValheimDifficultyScale
    public static class Calculations
    {
       // Each index represents the health/damage that biome recieves when upgrading to the next biome tier  (meadow -> Black Forest enemie swill recieve 22 extra health and 14 extra damage)
-      private static int[] FactionHealthIncreases = new[] { 22, 27, 33, 33, 19, 22, 21, 20, 20, 20, 20 };
-      private static int[] FactionDamageIncreases = new[] { 14, 13, 11, 14, 13, 12, 12, 12, 12, 12, 12 };
+      private static int[] FactionHealthIncreases = new[] { 42, 38, 30, 32, 20, 22, 21, 20, 20, 20, 20 };
+      private static int[] FactionDamageIncreases = new[] { 14, 15, 12, 12, 10, 14, 10, 10, 10, 10, 10 };
       public static float GetDistanceFromCenter(Character character)
       {
          ZoneSystem.instance.GetLocationIcon(Game.instance.m_StartLocation, out var startLocation);
@@ -24,8 +24,10 @@ namespace ValheimDifficultyScale
       }
       public static int GetFactionDifference(Character character, out int characterWorldLevel)
       {
+         int factionLevel = GetWorldLevelFromFaction(character);
          if (!SpawnSystemOverride.NameToWorldLevel.TryGetValue(character.m_name, out characterWorldLevel))
-            characterWorldLevel = GetWorldLevelFromFaction(character);
+            characterWorldLevel = factionLevel;
+         characterWorldLevel = Math.Max(factionLevel, characterWorldLevel);
          return WorldTier.CurrentTier - characterWorldLevel;
       }
       public static int GetWorldLevelFromFaction(Character character)
@@ -49,8 +51,8 @@ namespace ValheimDifficultyScale
          int characterWorldLevel = characterWorldLevelOut;
          if (factionDifference > 0)
          {
-            int baseHealthIncrease = Enumerable.Range(0, factionDifference).Sum(diffNdx => FactionDamageIncreases[characterWorldLevel + diffNdx]);
-            newDamage += (baseHealthIncrease + (oldDamage * .05f));
+            int baseDamageIncrease = Enumerable.Range(0, factionDifference).Sum(diffNdx => FactionDamageIncreases[characterWorldLevel + diffNdx]);
+            newDamage += (baseDamageIncrease + (oldDamage * .05f));
          }
          int locationTier = GetLocationTier(character);
          if (locationTier > 0)
@@ -58,15 +60,17 @@ namespace ValheimDifficultyScale
             float distanceFactor = Mathf.Pow(locationTier, 1.75f) / ValheimDifficultyScale.NUM_LOCATION_TIERS_POW;
             float multiplier = 1.05f; // silly compiler doesn't know that <=0, 1, 2, 3, 4+ covers all the ints,must assign value
             if (factionDifference <= 0)
-               multiplier = 1.075f;
+               multiplier = 1.05f;
             else if (factionDifference == 1)
-               multiplier = 1.3f;
+               multiplier = 1.1f;
             else if (factionDifference == 2)
-               multiplier = 1.65f;
+               multiplier = 1.2f;
             else if (factionDifference == 3)
-               multiplier = 2f;
+               multiplier = 1.3f;
             else if (factionDifference >= 4)
-               multiplier = 2.35f;
+               multiplier = 1.4f;
+            else if (factionDifference >= 5)
+               multiplier = 1.5f;
 
             newDamage *= Mathf.Lerp(1, multiplier, distanceFactor);
          }
@@ -96,13 +100,13 @@ namespace ValheimDifficultyScale
             if (factionDifference <= 0)
                multiplier = 1.05f;
             else if (factionDifference == 1)
-               multiplier = 1.3f;
+               multiplier = 1.2f;
             else if (factionDifference == 2)
-               multiplier = 1.65f;
+               multiplier = 1.6f;
             else if (factionDifference == 3)
-               multiplier = 2f;
+               multiplier = 1.75f;
             else if (factionDifference >= 4)
-               multiplier = 2.35f;
+               multiplier = 2f;
 
             newHealth *= Mathf.Lerp(1, multiplier, distanceFactor);
          }

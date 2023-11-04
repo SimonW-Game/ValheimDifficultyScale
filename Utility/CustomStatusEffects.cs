@@ -20,8 +20,8 @@ namespace ValheimDifficultyScale
       static CustomStatusEffects()
       {
          SlowdownEffect = ScriptableObject.CreateInstance<SE_Stats>();
-         SlowdownEffect.m_speedModifier = .4f;
-         SlowdownEffect.m_ttl = 4f;
+         SlowdownEffect.m_speedModifier = -.6f;
+         SlowdownEffect.m_ttl = 5f;
       }
    }
 }

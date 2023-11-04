@@ -25,9 +25,9 @@ namespace ValheimDifficultyScale
       // Keeping it in here as a fail safe, but a scary one.
       public static Dictionary<Character.Faction, int> FactionToWorldLevel = new Dictionary<Character.Faction, int>()
       {
-         { Character.Faction.ForestMonsters , 1 }, // Meadows + Black Forest...? hp 10-60. greling hp 20 dmg 5,  eikthyr dmg 15-20, troll hp 600 dmg 50/60/70
+         { Character.Faction.ForestMonsters , 0 }, // Meadows + Black Forest...? hp 10-60. greling hp 20 dmg 5,  eikthyr dmg 15-20, troll hp 600 dmg 50/60/70
 
-         { Character.Faction.Undead, 2 }, // Black Forest and swamp 40. skeleton dmg 25 brute hp 150 dmg 30. 
+         { Character.Faction.Undead, 1 }, // Black Forest and swamp 40. skeleton dmg 25 brute hp 150 dmg 30. 
 
          { Character.Faction.Demon, 2 }, // Swamp 60-200 draugr hp 100 dmg 48. D.Elite hp 200, dmg 58. abom hp 800, dmg 60/80
 

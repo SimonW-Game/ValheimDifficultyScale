@@ -51,6 +51,9 @@
     <Reference Include="ItemManager">
       <HintPath>lib\ItemManager.dll</HintPath>
     </Reference>
+    <Reference Include="Jotunn">
+      <HintPath>lib\Jotunn.dll</HintPath>
+    </Reference>
     <Reference Include="PieceManager">
       <HintPath>lib\PieceManager.dll</HintPath>
     </Reference>
@@ -84,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Calculations.cs" />
     <Compile Include="DrawCircles.cs" />
+    <Compile Include="Effects\PullAndStall.cs" />
     <Compile Include="Effects\PushAndSlowAfterTime.cs" />
     <Compile Include="Effects\StaggerAfterTime.cs" />
     <Compile Include="Utility\CustomStatusEffects.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarmonyLib;
+using JetBrains.Annotations;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -12,5 +14,4 @@ namespace ValheimDifficultyScale
          return a.GetManifestResourceStream(path);
       }
    }
-
 }

@@ -22,13 +22,21 @@ namespace ValheimDifficultyScale.Effects
          yield return new WaitForSeconds(1f);
          int rayMask = LayerMask.GetMask("character", "character_net", "character_ghost");
          Collider[] collisions = Physics.OverlapSphere(base.transform.position, 15f, rayMask);
+         List<Character> staggeredCharacters = new List<Character>();
          foreach (Collider collision in collisions)
          {
             GameObject gameObject = Projectile.FindHitObject(collision);
             Character character = gameObject.GetComponent<Character>();
             if (character != null && !(character is Player) && !character.m_boss)
+            {
                character.Stagger(this.transform.position);
+               staggeredCharacters.Add(character);
+            }
          }
+         yield return new WaitForSeconds(1.5f);
+         foreach (Character staggeredCharacter in staggeredCharacters)
+            staggeredCharacter?.Stagger(this.transform.position);
+
          ZNetScene.instance.Destroy(base.gameObject);
       }
 

@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static ClutterSystem;
 
 namespace ValheimDifficultyScale
 {
@@ -54,7 +55,6 @@ namespace ValheimDifficultyScale
                   {
                      currentWeapon.m_customData[UPGRADE_KEY] = $"{upgradeCost}"; // The cost is equal to the current damaged raised (first upgrade costs 1, 14th upgrade costs 14).
                      inventory.RemoveItem(item, upgradeCost);
-                     //item.m_stack = 50;
                      float highestDamage = GetHighestDamage(currentWeapon.m_shared.m_damages);
                      IncreaseHighestDamage(ref currentWeapon.m_shared.m_damages, highestDamage);
                      Player.m_localPlayer.m_zanim.SetTrigger("interact");
@@ -88,8 +88,6 @@ namespace ValheimDifficultyScale
                   {
                      currentUtility.m_customData[UPGRADE_KEY] = $"{upgradeCost}"; // The cost is equal to the current damaged raised (first upgrade costs 1, 14th upgrade costs 14).
                      inventory.RemoveItem(item, upgradeCost);
-                     //item.m_stack = 50;
-                     currentUtility.m_shared.m_armor++;
                      Player.m_localPlayer.m_zanim.SetTrigger("interact");
                      Player.m_localPlayer.Message(MessageHud.MessageType.Center, $"Upgraded {currentUtility.m_shared.m_name} armor by 1!");
                   }
@@ -168,8 +166,9 @@ namespace ValheimDifficultyScale
          [UsedImplicitly, HarmonyPriority(Priority.First)]
          private static void Postfix(Player __instance, ref float __result)
          {
-            if (__instance.m_utilityItem != null)
-               __result += __instance.m_utilityItem.GetArmor();
+            // Using only custom data because too many other mods add utility's armor
+            if (__instance.m_utilityItem != null && __instance.m_utilityItem.m_customData.TryGetValue(UPGRADE_KEY, out string upgradeValStr) && int.TryParse(upgradeValStr, out int upgradeVal))
+               __result += upgradeVal + (Game.m_worldLevel * (float)Game.instance.m_worldLevelGearBaseAC);
          }
       }
    }
