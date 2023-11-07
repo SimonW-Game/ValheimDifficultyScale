@@ -48,14 +48,8 @@
     <Reference Include="CreatureLevelControl">
       <HintPath>lib\CreatureLevelControl.dll</HintPath>
     </Reference>
-    <Reference Include="ItemManager">
-      <HintPath>lib\ItemManager.dll</HintPath>
-    </Reference>
     <Reference Include="Jotunn">
       <HintPath>lib\Jotunn.dll</HintPath>
-    </Reference>
-    <Reference Include="PieceManager">
-      <HintPath>lib\PieceManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,11 +77,16 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>lib\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>lib\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculations.cs" />
     <Compile Include="DrawCircles.cs" />
     <Compile Include="Effects\PullAndStall.cs" />
+    <Compile Include="Effects\SE_StayInAirNotMoving.cs" />
+    <Compile Include="Effects\ThrowUpInAir.cs" />
     <Compile Include="Effects\PushAndSlowAfterTime.cs" />
     <Compile Include="Effects\StaggerAfterTime.cs" />
     <Compile Include="Utility\CustomStatusEffects.cs" />
@@ -106,6 +105,23 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="assets\difficulty_scale" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\AshlandsBlobIcon.png" />
+    <EmbeddedResource Include="assets\BlackForestBlobIcon.png" />
+    <EmbeddedResource Include="assets\BlackForestOozeBomb.png" />
+    <EmbeddedResource Include="assets\DeepNorthBlobIcon.png" />
+    <EmbeddedResource Include="assets\MeadowBlobIcon.png" />
+    <EmbeddedResource Include="assets\MeadowOozeBomb.png" />
+    <EmbeddedResource Include="assets\MistlandsBlobIcon.png" />
+    <EmbeddedResource Include="assets\MountainBlobIcon.png" />
+    <EmbeddedResource Include="assets\PlainsBlobIcon.png" />
+    <EmbeddedResource Include="assets\PlainsOozeBomb.png" />
+    <EmbeddedResource Include="assets\SwampBlobIcon.png" />
+    <EmbeddedResource Include="assets\SwampOozeBomb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\Blob_Smusher_Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

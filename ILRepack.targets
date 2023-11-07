@@ -3,8 +3,7 @@
    <Target Name="ILRepacker" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
          <InputAssemblies Include="$(TargetPath)"/>
-         <InputAssemblies Include="$(OutputPath)ItemManager.dll"/>
-         <InputAssemblies Include="$(OutputPath)PieceManager.dll"/>
+         <InputAssemblies Include="$(OutputPath)Jotunn.dll"/>
       </ItemGroup>
       <ILRepack Parallel="true"
                 DebugInfo="true"

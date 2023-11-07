@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using ItemManager;
+using Jotunn.Entities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,28 +25,29 @@ namespace ValheimDifficultyScale
                {
                   if (factionDifference > 0)
                   {
-                     if (ItemData.BiomeToItemMap.TryGetValue(biome, out Item item))
+                     //foreach (CustomItem item in ItemData.BiomeToItemMap.Values)
+                     if (ItemData.BiomeToItemMap.TryGetValue(biome, out CustomItem item))
                      {
                         float dropChanceForBiome = (float)Math.Pow(WorldTier.CurrentTier + characterWorldLevelOut + locationTier, 1.45f) / (ValheimDifficultyScale.DROP_CHANCE_DENOMINATOR * 2.5f);
-                        CharacterDrop.Drop dropy = new CharacterDrop.Drop() { m_amountMin = 1, m_amountMax = 1, m_chance = dropChanceForBiome, m_prefab = item.Prefab, m_levelMultiplier = true, m_onePerPlayer = false, m_dontScale = true };
+                        CharacterDrop.Drop dropy = new CharacterDrop.Drop() { m_amountMin = 1, m_amountMax = 1, m_chance = dropChanceForBiome, m_prefab = item.ItemPrefab, m_levelMultiplier = true, m_onePerPlayer = false, m_dontScale = true };
                         if (__instance.m_boss)
                         {
                            dropy.m_chance *= 2.5f;
                            dropy.m_amountMin = (int)Math.Ceiling(characterWorldLevelOut / 2f);
                            dropy.m_amountMax = ValheimDifficultyScale.NUM_TOTAL_FACTION_LEVELS + 1 - factionDifference;
                         }
-                        characterDrop.m_drops.RemoveAll(d => d.m_prefab == item.Prefab);
+                        characterDrop.m_drops.RemoveAll(d => d.m_prefab == item.ItemPrefab);
                         characterDrop.m_drops.Add(dropy);
                      }
                      float dropChance = (float)Math.Pow(WorldTier.CurrentTier + characterWorldLevelOut + locationTier, 1.4f) / ValheimDifficultyScale.DROP_CHANCE_DENOMINATOR;
-                     CharacterDrop.Drop drop = new CharacterDrop.Drop() { m_amountMin = 1, m_amountMax = 1, m_chance = dropChance, m_prefab = ItemData.DifficultyBlob.Prefab, m_levelMultiplier = true, m_onePerPlayer = false, m_dontScale = true };
+                     CharacterDrop.Drop drop = new CharacterDrop.Drop() { m_amountMin = 1, m_amountMax = 1, m_chance = dropChance, m_prefab = ItemData.DifficultyBlob.ItemPrefab, m_levelMultiplier = true, m_onePerPlayer = false, m_dontScale = true };
                      if (__instance.m_boss)
                      {
                         drop.m_chance *= 1.5f;
                         drop.m_amountMin = (int)Math.Ceiling(characterWorldLevelOut / 2f);
                         drop.m_amountMax = ValheimDifficultyScale.NUM_TOTAL_FACTION_LEVELS + 1 - factionDifference;
                      }
-                     int removedDifficultyBlobCount = characterDrop.m_drops.RemoveAll(d => d.m_prefab == ItemData.DifficultyBlob.Prefab);
+                     int removedDifficultyBlobCount = characterDrop.m_drops.RemoveAll(d => d.m_prefab == ItemData.DifficultyBlob.ItemPrefab);
                      characterDrop.m_drops.Add(drop);
                      Debug.Log($"DropCount == {characterDrop?.m_drops.Count} - {removedDifficultyBlobCount}");
                   }
